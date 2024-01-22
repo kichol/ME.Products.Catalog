@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { ProductResponse } from '../interfaces/productResponse';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, tap } from 'rxjs';
 
 
  @Injectable({
@@ -13,13 +13,15 @@ import { BehaviorSubject, Subject } from 'rxjs';
    rootDirectory = 'https://localhost:7088/api';
    products: Product[];
    productsChanged = new Subject<Product[]>();
-
+   loaded$ = new BehaviorSubject(null);
   
   constructor(private http : HttpClient) { }
 
 
  getProducts()  {
-   return this.http.get<Product[]>(`${this.rootDirectory}/products`)
+   return this.http.get<Product[]>(`${this.rootDirectory}/products`).pipe(
+     tap(()=>this.loaded$.next(true))
+   )
      .subscribe(
        {
          next: response => {

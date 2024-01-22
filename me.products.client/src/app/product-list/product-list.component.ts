@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from 'src/interfaces/product';
 import { CatalogService } from '../catalog.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -11,8 +12,12 @@ import { Router } from '@angular/router';
 export class ProductListComponent {
 
   products: Product[];
+  loaded$: BehaviorSubject<boolean>;
   constructor(private router: Router,
-    private catalogService: CatalogService) { }
+    private catalogService: CatalogService) {
+    this.loaded$ = this.catalogService.loaded$;
+
+  }
 
 
   ngOnInit() {

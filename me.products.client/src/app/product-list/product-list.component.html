@@ -1,4 +1,5 @@
-<div *ngIf="">
+  <ng-container *ngIf="loaded$ | async" >">
+
   <h3>Product Catalog</h3>
 
     <a class="btn btn-primary btn-sm" routerLink="/create" >Create</a>
@@ -45,3 +46,5 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+
+</ng-container>
