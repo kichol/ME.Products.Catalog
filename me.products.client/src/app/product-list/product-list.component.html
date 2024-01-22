@@ -1,0 +1,47 @@
+<div *ngIf="">
+  <h3>Product Catalog</h3>
+
+    <a class="btn btn-primary btn-sm" routerLink="/create" >Create</a>
+
+
+
+</div>
+
+<div class="row align-items-start">
+  <div class="col-8">
+
+
+    <div class="col">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products;index as i">
+            <td>
+              {{product.code}}
+            </td>
+            <td>
+              {{product.name}}
+            </td>
+            <td>
+              {{product.price}}
+            </td>
+            <td>
+              <a class="edit mx-1" title="Edit" data-toggle="tooltip"><i (click)="editClicked(i)" class="fa fa-edit"></i></a>
+              <a class="delete mx-1" title="Delete" data-toggle="tooltip"><i (click)="deleteClicked(i)" class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>
