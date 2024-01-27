@@ -40,7 +40,7 @@ export class EditProductComponent {
       return;
     }
     this.catalogService.editProduct(this.editForm.value);
-    this.router.navigateByUrl('/');
+  this.router.navigateByUrl('/');
 
   }
 
