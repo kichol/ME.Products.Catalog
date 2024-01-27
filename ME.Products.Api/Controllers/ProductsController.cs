@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ME.Products.Application.Features.Products.Queries.GetProductDetail;
 using ME.Products.Application.Features.Products.Commands.UpdateProduct;
 using ME.Products.Application.Features.Products.Commands.DeleteProduct;
+using ME.Products.Application.Features.Products.Queries.GetProductsPagedList;
 
 namespace ME.Products.Api.Controllers
 {
@@ -26,6 +27,15 @@ namespace ME.Products.Api.Controllers
         public async Task<ActionResult<List<ProductListVm>>> GetAllProducts()
         {
             var dtos = await _mediator.Send(new GetProductListQuery());
+            return Ok(dtos);
+        }
+        
+        [HttpGet("GetPagedProducts")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<List<ProductPagedListVm>>> GetPagedProducts(int page = 1, byte pageSize =10,string sortBy = "Name" ,bool sortAsc = true )
+        {
+            var dtos = await _mediator.Send(new GetProductsPagedListQuery() { Page = page, PageSize = pageSize ,IsSortAscending = sortAsc  });
             return Ok(dtos);
         }
 

@@ -23,7 +23,18 @@ export class CreateProductComponent {
     if (!this.createForm.valid) {
       return;
     }
-    this.catalogService.createProduct(this.createForm.value);
+    this.catalogService.createProduct(this.createForm.value)
+      .subscribe(
+        {
+          next: response => {
+          //  this.catalogService.getProducts().subscribe();
+          this.catalogService.getPage(1);  
+          },
+          error: error => { console.log('There was and error loading product! ', error) },
+
+        });
+
+
     this.router.navigateByUrl('/');
    
   }

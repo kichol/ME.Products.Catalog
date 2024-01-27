@@ -18,7 +18,8 @@ namespace ME.Products.Application.Features.Products.Queries.GetProductsList
 
         public async Task<List<ProductListVm>> Handle(GetProductListQuery request, CancellationToken cancellationToken)
         {
-            var allProducts = (await _productRepository.ListAllAsync()).OrderBy(x => x.Name);
+            var allProducts = (await _productRepository.ListAllAsync())
+                .OrderBy(x => x.Name);
             return _mapper.Map<List<ProductListVm>>(allProducts);
         }
     }

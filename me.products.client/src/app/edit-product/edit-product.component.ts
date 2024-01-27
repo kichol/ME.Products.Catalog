@@ -39,8 +39,19 @@ export class EditProductComponent {
     if (!this.editForm.valid) {
       return;
     }
-    this.catalogService.editProduct(this.editForm.value);
-  this.router.navigateByUrl('/');
+    this.catalogService.editProduct(this.editForm.value)
+    .subscribe(
+      {
+        next: response => {
+          //this.catalogService.getProducts().subscribe();
+          this.catalogService.getPage(1); 
+        },
+        error: error => { console.log('There was and error loading product! ', error) },
+
+      });
+    
+
+    this.router.navigateByUrl('/');
 
   }
 
