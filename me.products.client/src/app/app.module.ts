@@ -5,17 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateProductComponent } from './create-product/create-product.component';
-import { ModalComponent } from './shared/modal/modal.component';
 import { ReactiveFormsModule, FormsModule }   from '@angular/forms';
 import { ProductListComponent } from './product-list/product-list.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateProductComponent,
-    ModalComponent,
     ProductListComponent,
     EditProductComponent,
     PlaceholderComponent
@@ -25,7 +24,8 @@ import { PlaceholderComponent } from './placeholder/placeholder.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

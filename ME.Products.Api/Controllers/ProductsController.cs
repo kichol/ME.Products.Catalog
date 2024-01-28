@@ -33,9 +33,9 @@ namespace ME.Products.Api.Controllers
         [HttpGet("GetPagedProducts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<ProductPagedListVm>>> GetPagedProducts(int page = 1, byte pageSize =10,string sortBy = "Name" ,bool sortAsc = true )
+        public async Task<ActionResult<List<ProductPagedListVm>>> GetPagedProducts(int page = 1, int pageSize =10,string sortBy = "Name"  )
         {
-            var dtos = await _mediator.Send(new GetProductsPagedListQuery() { Page = page, PageSize = pageSize ,IsSortAscending = sortAsc  });
+            var dtos = await _mediator.Send(new GetProductsPagedListQuery() { Page = page, PageSize = pageSize, SortBy= sortBy   });
             return Ok(dtos);
         }
 

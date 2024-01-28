@@ -12,15 +12,17 @@ import { Observable, tap } from 'rxjs';
 export class ProductListComponent {
 
   products: Product[];
+  numberOfPages: number;
   products$: Observable<Product[]>;
   constructor(private router: Router,
     private catalogService: CatalogService) {
+
     this.catalogService.productsChanged.subscribe(result => this.products = result);
-    
+    this.catalogService.numberOfPages.subscribe(result => this.numberOfPages = result);
+
     this.products$ = this.catalogService.pagesOutput;
     this.products$.subscribe(products => {
         this.products = products;
-        console.log(products);
     });
    
     this.catalogService.getPage(1);  
@@ -28,17 +30,7 @@ export class ProductListComponent {
 
   }
 
-  ngOnInit() {
-    // this.products$ = this.catalogService.getProducts();
-    // this.products$.subscribe(
-    //   {
-    //     next: response => {
-    //       this.products = response;
-    //     },
-    //     error: error => { console.log('There was and error loading products! ', error) },
 
-    //   });
-  }
 
   editClicked(index: number) {
     const product = this.products[index];
@@ -47,19 +39,25 @@ export class ProductListComponent {
   }
 
   deleteClicked(event: any) {
+
+    if (confirm("Are you sure?")) {
     const productId = this.products[event].productId;
     console.log(productId);
     this.catalogService.deleteProduct(productId)
       .subscribe(
         {
           next: response => {
-           // this.catalogService.getProducts().subscribe();
            this.catalogService.getPage(1);
           },
           error: error => { console.log('There was and error loading product! ', error) },
 
         });
   }
+}
+
+onPageChange(page){
+  this.catalogService.getPage(page); 
+}
 
 }
 

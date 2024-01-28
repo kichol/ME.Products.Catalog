@@ -17,7 +17,7 @@ import { ProductsResponse } from 'src/interfaces/productsResponse';
    products: Product[];
    productsChanged = new Subject<Product[]>();
    
-   private pageSize = 3;
+   private pageSize = 5;
    private sortBy = 'Code';
    private sortAsc = true;
 
