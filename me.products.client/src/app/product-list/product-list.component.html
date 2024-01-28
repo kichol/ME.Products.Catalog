@@ -1,51 +1,51 @@
-
-  <!-- <ng-container *ngIf="products$|async"> -->
+<!-- <ng-container *ngIf="products$|async"> -->
+  
+  <div class="container">
     
-    <h3>Product Catalog</h3>
-    
-    <a class="btn btn-primary btn-sm" routerLink="/create" >Create</a>
-    
-    
-    
-    
-    <div class="row align-items-start">
-      <div class="col-8">
+      
+      <h3>Product Catalog</h3>
+      
+      <a class="btn btn-primary btn-sm" routerLink="/create">Create</a>
+      
+      <div class="d-flex justify-content-between">
         
-        
-        <div class="col">
-          <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let product of products;index as i">
-            <td>
-              {{product.code}}
-            </td>
-            <td>
-              {{product.name}}
-            </td>
-            <td>
-              {{product.price}}
-            </td>
-            <td>
-              <a class="edit mx-1" title="Edit" data-toggle="tooltip"><i (click)="editClicked(i)" class="fa fa-edit"></i></a>
-              <a class="delete mx-1" title="Delete" data-toggle="tooltip"><i (click)="deleteClicked(i)" class="fa fa-trash"></i></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="col-4">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+        <table class="table table-hover w-50 mx-3 flex-fill">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products;index as i">
+          <td>
+            {{product.code}}
+          </td>
+          <td>
+            {{product.name}}
+          </td>
+          <td>
+                {{product.price}}
+              </td>
+              <td>
+                <a class="edit mx-1" title="Edit" data-toggle="tooltip"><i (click)="editClicked(i)"
+                  class="fa fa-edit"></i></a>
+                  <a class="delete mx-1" title="Delete" data-toggle="tooltip"><i (click)="deleteClicked(i)"
+                    class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="flex-fill">
 
-
-<app-paginator [number-of-pages]="numberOfPages" (page-changed)="onPageChange($event)"></app-paginator>
+              <router-outlet></router-outlet>
+            </div>
+        </div>
+          <div style="  position: absolute; bottom: 30%;">
+            
+            <app-paginator [number-of-pages]="numberOfPages" (page-changed)="onPageChange($event)"></app-paginator>
+          </div>
+          
+        </div>

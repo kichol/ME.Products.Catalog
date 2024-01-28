@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CatalogService } from '../catalog.service';
 
 
 @Component({
@@ -15,10 +16,17 @@ export class PaginatorComponent {
   
   currentPage = 1;
 
-  constructor(){
+  constructor(private catalogService: CatalogService){
+    this.catalogService.numberOfPages.subscribe(result => {
+      if (this.currentPage > result) {
+        this.currentPage = 1;
+      }
+
+    });
   }
 
   ngOnChanges(){
+  
     this.pageOptions = [
       this.currentPage - 2,
       this.currentPage - 1,

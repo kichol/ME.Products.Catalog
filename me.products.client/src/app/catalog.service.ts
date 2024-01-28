@@ -19,7 +19,6 @@ import { ProductsResponse } from 'src/interfaces/productsResponse';
    
    private pageSize = 5;
    private sortBy = 'Code';
-   private sortAsc = true;
 
    private pagesInput: Subject<number>;
    pagesOutput: Observable<Product[]>;

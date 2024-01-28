@@ -9,7 +9,7 @@ import { ReactiveFormsModule, FormsModule }   from '@angular/forms';
 import { ProductListComponent } from './product-list/product-list.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
-import { SharedModule } from './shared/shared.module';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { SharedModule } from './shared/shared.module';
     CreateProductComponent,
     ProductListComponent,
     EditProductComponent,
-    PlaceholderComponent
+    PlaceholderComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +26,6 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

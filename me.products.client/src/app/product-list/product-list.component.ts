@@ -26,11 +26,7 @@ export class ProductListComponent {
     });
    
     this.catalogService.getPage(1);  
-
-
   }
-
-
 
   editClicked(index: number) {
     const product = this.products[index];
@@ -42,7 +38,6 @@ export class ProductListComponent {
 
     if (confirm("Are you sure?")) {
     const productId = this.products[event].productId;
-    console.log(productId);
     this.catalogService.deleteProduct(productId)
       .subscribe(
         {
@@ -57,6 +52,7 @@ export class ProductListComponent {
 
 onPageChange(page){
   this.catalogService.getPage(page); 
+
 }
 
 }
