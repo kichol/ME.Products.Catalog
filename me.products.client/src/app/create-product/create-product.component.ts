@@ -27,7 +27,6 @@ export class CreateProductComponent {
       .subscribe(
         {
           next: response => {
-          //  this.catalogService.getProducts().subscribe();
           this.catalogService.getPage(1);  
           },
           error: error => { console.log('There was and error loading product! ', error) },

@@ -15,18 +15,25 @@ export class PaginatorComponent {
   pageOptions: number[];
   
   currentPage = 1;
+  totalCount =0;
 
   constructor(private catalogService: CatalogService){
+ 
+  }
+
+  ngOnInit(){
     this.catalogService.numberOfPages.subscribe(result => {
       if (this.currentPage > result) {
         this.currentPage = 1;
       }
-
     });
-  }
+    
 
+  }
+  
   ngOnChanges(){
   
+   
     this.pageOptions = [
       this.currentPage - 2,
       this.currentPage - 1,

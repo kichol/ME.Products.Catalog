@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product } from 'src/interfaces/product';
+import { Product, ProductListResponse } from 'src/interfaces/product';
 import { CatalogService } from '../catalog.service';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
@@ -12,17 +12,18 @@ import { Observable, tap } from 'rxjs';
 export class ProductListComponent {
 
   products: Product[];
+  totalCount: number;
   numberOfPages: number;
-  products$: Observable<Product[]>;
+  products$: Observable<ProductListResponse>;
   constructor(private router: Router,
     private catalogService: CatalogService) {
 
     this.catalogService.productsChanged.subscribe(result => this.products = result);
     this.catalogService.numberOfPages.subscribe(result => this.numberOfPages = result);
 
-    this.products$ = this.catalogService.pagesOutput;
-    this.products$.subscribe(products => {
-        this.products = products;
+    this.catalogService.pagesOutput.subscribe(response => {
+        this.products = response.products;
+        this.totalCount = response.totalCount;
     });
    
     this.catalogService.getPage(1);  
@@ -51,6 +52,7 @@ export class ProductListComponent {
 }
 
 onPageChange(page){
+  console.log(page);
   this.catalogService.getPage(page); 
 
 }

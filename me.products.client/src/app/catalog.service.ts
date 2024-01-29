@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from '../interfaces/product';
+import { Product, ProductListResponse } from '../interfaces/product';
 import { ProductResponse } from '../interfaces/productResponse';
 import { BehaviorSubject, Observable, Subject, map, pluck, switchMap, tap } from 'rxjs';
 import { ProductsResponse } from 'src/interfaces/productsResponse';
@@ -21,8 +21,9 @@ import { ProductsResponse } from 'src/interfaces/productsResponse';
    private sortBy = 'Code';
 
    private pagesInput: Subject<number>;
-   pagesOutput: Observable<Product[]>;
+   pagesOutput: Observable<ProductListResponse>;
    numberOfPages: Subject<number>;
+   totalCount: Subject<number>;
   
   constructor(private http : HttpClient) {
       this.productsChanged.subscribe(result=> this.products = result);
@@ -43,8 +44,7 @@ import { ProductsResponse } from 'src/interfaces/productsResponse';
         const totalPages = Math.ceil(response.totalCount / this.pageSize);
         this.numberOfPages.next(totalPages);
       }),
-      pluck('products'),
-      tap(result => this.productsChanged.next(result))
+      tap((result) => this.productsChanged.next(result.products))
     );
   }
 
