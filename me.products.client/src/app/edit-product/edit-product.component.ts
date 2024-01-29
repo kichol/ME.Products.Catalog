@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/interfaces/product';
 import { CatalogService } from '../catalog.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-product',
@@ -12,10 +13,11 @@ import { CatalogService } from '../catalog.service';
 export class EditProductComponent {
 
   product: Product;
+  currentPage = 1;
   editForm: FormGroup;
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              private catalogService: CatalogService) { }
+    private route: ActivatedRoute,
+    private catalogService: CatalogService) { }
 
 
 
@@ -23,6 +25,10 @@ export class EditProductComponent {
     this.route.params.subscribe(({ id }) => {
       this.product = this.catalogService.products.find(product => product.productId === id);
     });
+
+    this.catalogService.pagesInput.subscribe((page) => {
+      this.currentPage = page;
+    }) ;
 
     const { productId, code, name, price } = this.product;
 
@@ -34,22 +40,21 @@ export class EditProductComponent {
     });
   }
 
-  
+
   onSubmit() {
     if (!this.editForm.valid) {
       return;
     }
     this.catalogService.editProduct(this.editForm.value)
-    .subscribe(
-      {
-        next: response => {
-          //this.catalogService.getProducts().subscribe();
-          this.catalogService.getPage(1); 
-        },
-        error: error => { console.log('There was and error loading product! ', error) },
+      .subscribe(
+        {
+          next: response => {
+            this.catalogService.getPage(this.currentPage);
+          },
+          error: error => { console.log('There was and error loading product! ', error) },
 
-      });
-    
+        });
+
 
     this.router.navigateByUrl('/');
 

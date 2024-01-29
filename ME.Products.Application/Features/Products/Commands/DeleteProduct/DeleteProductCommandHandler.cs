@@ -30,6 +30,7 @@ namespace ME.Products.Application.Features.Products.Commands.DeleteProduct
             }
 
             deleteProductCommandResponse.ProductId = request.ProductId;
+            deleteProductCommandResponse.Message = $"{request.ProductId} deleted";
 
             await _ProductRepository.DeleteAsync(ProductToDelete);
             return deleteProductCommandResponse;

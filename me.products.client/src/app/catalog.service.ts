@@ -20,10 +20,9 @@ import { ProductsResponse } from 'src/interfaces/productsResponse';
    private pageSize = 5;
    private sortBy = 'Code';
 
-   private pagesInput: Subject<number>;
+   pagesInput: Subject<number>;
    pagesOutput: Observable<ProductListResponse>;
    numberOfPages: Subject<number>;
-   totalCount: Subject<number>;
   
   constructor(private http : HttpClient) {
       this.productsChanged.subscribe(result=> this.products = result);
@@ -32,6 +31,7 @@ import { ProductsResponse } from 'src/interfaces/productsResponse';
       this.pagesInput = new Subject();
       this.pagesOutput = this.pagesInput.pipe(
         map(page => {
+          console.log(page);
           return new HttpParams()
           .set('pageSize',String(this.pageSize))
           .set('page', String(page))
@@ -43,8 +43,8 @@ import { ProductsResponse } from 'src/interfaces/productsResponse';
       tap(response => {
         const totalPages = Math.ceil(response.totalCount / this.pageSize);
         this.numberOfPages.next(totalPages);
+        this.productsChanged.next(response.products)
       }),
-      tap((result) => this.productsChanged.next(result.products))
     );
   }
 

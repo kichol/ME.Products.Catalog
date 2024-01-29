@@ -59,8 +59,8 @@ namespace ME.Products.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Update([FromBody] UpdateProductCommand updateProductCommand)
         {
-            await _mediator.Send(updateProductCommand);
-            return NoContent();
+            return Ok(await _mediator.Send(updateProductCommand));
+            //return NoContent();
         }
 
         [HttpDelete("{id}", Name = "DeleteProduct")]

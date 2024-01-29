@@ -15,32 +15,25 @@ export class PaginatorComponent {
   pageOptions: number[];
   
   currentPage = 1;
-  totalCount =0;
+  totalCount = 0;
 
-  constructor(private catalogService: CatalogService){
- 
-  }
+  constructor(private catalogService: CatalogService){ }
 
   ngOnInit(){
-    this.catalogService.numberOfPages.subscribe(result => {
-      if (this.currentPage > result) {
-        this.currentPage = 1;
-      }
-    });
-    
-
+     this.catalogService.pagesInput.subscribe(page => this.currentPage = page );
   }
   
   ngOnChanges(){
-  
-   
     this.pageOptions = [
       this.currentPage - 2,
       this.currentPage - 1,
       this.currentPage ,
       this.currentPage + 1,
       this.currentPage + 2,
-    ].filter(pageNumber => pageNumber >= 1 && pageNumber <= this.numberOfPages)
+    ].filter(pageNumber => pageNumber >= 1 && pageNumber <= this.numberOfPages);
+
+    
+    
   }
   
   changePage(page){

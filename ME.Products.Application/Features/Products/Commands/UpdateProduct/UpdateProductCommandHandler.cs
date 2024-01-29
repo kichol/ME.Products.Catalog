@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ME.Products.Application.Contracts.Persistence;
 using ME.Products.Application.Exceptions;
+using ME.Products.Application.Features.Products.Commands.CreateProduct;
 using ME.Products.Domain.Entities;
 using MediatR;
 
@@ -31,12 +32,26 @@ namespace ME.Products.Application.Features.Products.Commands.UpdateProduct
             var validator = new UpdateProductCommandValidator();
             var validationResult = await validator.ValidateAsync(request);
 
+
             if (validationResult.Errors.Count > 0)
-                throw new ValidationException(validationResult);
+            {
+                updateProductCommandResponse.Success = false;
+                updateProductCommandResponse.ValidationErrors = new List<string>();
+                foreach (var error in validationResult.Errors)
+                {
+                    updateProductCommandResponse.ValidationErrors.Add(error.ErrorMessage);
+                }
+            }
 
+            if (updateProductCommandResponse.Success)
+            {
             _mapper.Map(request, ProductToUpdate, typeof(UpdateProductCommand), typeof(Product));
+            var product =  await _productRepository.UpdateAsync(ProductToUpdate);
+            
+                updateProductCommandResponse.Product = _mapper.Map<UpdateProductDto>(product);
+                updateProductCommandResponse.Message = $"Product id: {product.ProductId} updated";
+            }
 
-            await _productRepository.UpdateAsync(ProductToUpdate);
 
             return updateProductCommandResponse;
 

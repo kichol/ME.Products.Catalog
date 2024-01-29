@@ -43,6 +43,7 @@ namespace ME.Products.Application.Features.Products.Commands.CreateProduct
                 };
                 Product = await _productRepository.AddAsync(Product);
                 createProductCommandResponse.Product = _mapper.Map<CreateProductDto>(Product);
+                createProductCommandResponse.Message = $"{Product.ProductId} created";
             }
 
             return createProductCommandResponse;

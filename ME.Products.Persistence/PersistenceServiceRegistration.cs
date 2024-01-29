@@ -75,6 +75,13 @@ namespace ME.Products.Persistence
                     Price = 332.49m
 
                 });
+                context.Products.Add(new Product {
+                    ProductId = Guid.Parse("{2c47c25b-2326-46f1-8a57-a655e36cae6c}"),
+                    Code = "PEG 001",
+                    Name = "Pegasus Console",
+                    Price = 999.99m
+
+                });
 
                 context.SaveChanges();
             }

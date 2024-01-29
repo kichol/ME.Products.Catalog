@@ -14,7 +14,7 @@ export class ProductListComponent {
   products: Product[];
   totalCount: number;
   numberOfPages: number;
-  products$: Observable<ProductListResponse>;
+  
   constructor(private router: Router,
     private catalogService: CatalogService) {
 
@@ -32,7 +32,7 @@ export class ProductListComponent {
   editClicked(index: number) {
     const product = this.products[index];
     const id = product.productId;
-    this.router.navigateByUrl('/edit/' + id);
+    this.router.navigateByUrl('/edit/' + id );
   }
 
   deleteClicked(event: any) {
@@ -52,7 +52,6 @@ export class ProductListComponent {
 }
 
 onPageChange(page){
-  console.log(page);
   this.catalogService.getPage(page); 
 
 }
