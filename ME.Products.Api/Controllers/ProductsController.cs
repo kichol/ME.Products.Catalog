@@ -60,7 +60,6 @@ namespace ME.Products.Api.Controllers
         public async Task<ActionResult> Update([FromBody] UpdateProductCommand updateProductCommand)
         {
             return Ok(await _mediator.Send(updateProductCommand));
-            //return NoContent();
         }
 
         [HttpDelete("{id}", Name = "DeleteProduct")]
@@ -70,8 +69,8 @@ namespace ME.Products.Api.Controllers
         public async Task<ActionResult> Delete(Guid id)
         {
             var deleteProductCommand = new DeleteProductCommand() { ProductId = id };
-            await _mediator.Send(deleteProductCommand);
-            return NoContent();
+            return Ok(await _mediator.Send(deleteProductCommand));
+       
         }
 
        
