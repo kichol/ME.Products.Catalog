@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ME.Products.Application.Contracts.Persistence;
 using ME.Products.Application.Features.Products.Queries.GetProductsList;
+using ME.Products.Application.Features.Products.Queries.GetProductsPagedList;
 using ME.Products.Application.Profiles;
 using ME.Products.Domain.Entities;
 using ME.Products.UnitTests.Mocks;
@@ -20,7 +21,6 @@ namespace ME.Products.UnitTests.Products.Queries
         private readonly Mock<IProductRepository> _mockProductRepository;
         public GetProductsListQueryHandlerTests()
         {
-            //_mockProductRepository = new Mock<IAsyncRepository<Product>>();
             _mockProductRepository = RepositoryMocks.GetProductRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -37,5 +37,15 @@ namespace ME.Products.UnitTests.Products.Queries
             result.ShouldBeOfType<List<ProductListVm>>();
             result.Count.ShouldBe(4);
         }
+        [Fact]
+        public async Task PagedListShouldReceiveCorrectPageSizeAndTotalCount()
+        {
+            var handler = new GetProductsPagedListQueryHandler(_mapper, _mockProductRepository.Object);
+            var result = await handler.Handle(new GetProductsPagedListQuery() {Page = 1, PageSize = 2 }, CancellationToken.None);
+            result.ShouldBeOfType<ProductsPagedListResponse>();
+            result.TotalCount.ShouldBe(4);
+          
+        }
+
     }
 }

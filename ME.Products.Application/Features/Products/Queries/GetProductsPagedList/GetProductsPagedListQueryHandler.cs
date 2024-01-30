@@ -23,7 +23,7 @@ namespace ME.Products.Application.Features.Products.Queries.GetProductsPagedList
         {
             var response = new ProductsPagedListResponse();
 
-            var sortBy = request.SortBy[0].ToString().ToUpper()+request.SortBy.Substring(1);
+            var sortBy =  request.SortBy[0].ToString().ToUpper()+request.SortBy.Substring(1);
             var propertyInfo = typeof(Product).GetProperty(sortBy);
 
             var allProducts = (await _productRepository.GetPagedReponseAsync(request.Page, request.PageSize))

@@ -42,6 +42,9 @@ namespace ME.Products.UnitTests.Mocks
             var mockProductRepository = new Mock<IProductRepository>();
 
             mockProductRepository.Setup(repo => repo.ListAllAsync()).ReturnsAsync(products);
+            mockProductRepository.Setup(repo => repo.GetPagedReponseAsync(
+                                            It.IsAny<int>()
+                                            ,It.IsAny<int>())).ReturnsAsync(products);
              mockProductRepository.Setup(repo => repo.AddAsync(It.IsAny<Product>()))
                 .ReturnsAsync(((Product product) =>
                 {
